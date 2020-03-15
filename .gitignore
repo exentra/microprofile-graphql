@@ -7,9 +7,11 @@
 .idea
 .DS_Store
 **/*.iml
+*.checkstyle
 /server/target/
 /client/tck/target/
 /full/target/
 /full/api/target/
 /full/tck/target/
+/full/spec/target/
 /full/spec/target/

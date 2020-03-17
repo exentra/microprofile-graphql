@@ -15,10 +15,8 @@
  */
 package org.eclipse.microprofile.graphql.tck.dynamic;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Properties;
 import org.eclipse.microprofile.graphql.ConfigKey;
+import org.eclipse.microprofile.graphql.MetaField;
 import org.eclipse.microprofile.graphql.tck.apps.basic.api.ScalarTestApi;
 import org.eclipse.microprofile.graphql.tck.apps.superhero.api.HeroFinder;
 import org.eclipse.microprofile.graphql.tck.apps.superhero.db.HeroDatabase;
@@ -29,14 +27,20 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Properties;
+
 /**
  * Helper to create the deployable unit to test against
+ *
  * @author Phillip Kruger (phillip.kruger@redhat.com)
  */
 public class DeployableUnit {
-    
-    private DeployableUnit(){}
-    
+
+    private DeployableUnit() {
+    }
+
     public static Archive<?> getDeployment(String unitName) throws Exception {
         return ShrinkWrap.create(WebArchive.class, unitName + ".war")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
@@ -46,16 +50,18 @@ public class DeployableUnit {
                 .addPackage(HeroFinder.class.getPackage())
                 .addPackage(HeroDatabase.class.getPackage())
                 .addPackage(SuperHero.class.getPackage())
+                .addPackage(MetaField.class.getPackage())
                 .addPackage(ScalarTestApi.class.getPackage());
     }
-    
-    private static String getPropertyAsString() throws IOException {    
+
+    private static String getPropertyAsString() throws IOException {
         StringWriter writer = new StringWriter();
-        PROPERTIES.store(writer,"TCK Properties");
+        PROPERTIES.store(writer, "TCK Properties");
         return writer.toString();
     }
 
     private static final Properties PROPERTIES = new Properties();
+
     static {
         PROPERTIES.put(ConfigKey.DEFAULT_ERROR_MESSAGE, "Unexpected failure in the system. Jarvis is working to fix it.");
         PROPERTIES.put(ConfigKey.EXCEPTION_BLACK_LIST, "java.io.IOException,java.util.concurrent.TimeoutException");

@@ -1,32 +1,54 @@
+/*
+ * Copyright (c) 2020 Contributors to the Eclipse Foundation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.eclipse.microprofile.graphql.tck.apps.superhero.model;
+
+import org.eclipse.microprofile.graphql.Ignore;
+import org.eclipse.microprofile.graphql.MetaFieldType;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.microprofile.graphql.MetaFieldType;
-
 public class Villain implements Character, MetaFieldType {
 
-	private final Map<String, Object> metaFieldValues = new HashMap<>();
-	private String name;
+    @Ignore
+    private final Map<String, Object> metaFieldValues = new HashMap<>();
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    private String name;
 
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Villain() {
 
-	@Override
-	public Object getMetaFieldValue(String name) {
-		return metaFieldValues.get(name);
-	}
+    }
 
-	@Override
-	public void setMetaFieldValue(String name, Object value) {
-		metaFieldValues.put(name, value);
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public Object getMetaFieldValue(String name) {
+        return metaFieldValues.get(name);
+    }
+
+    @Override
+    public void setMetaFieldValue(String name, Object value) {
+        metaFieldValues.put(name, value);
+    }
 }

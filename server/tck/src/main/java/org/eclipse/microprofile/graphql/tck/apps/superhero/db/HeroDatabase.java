@@ -15,6 +15,14 @@
  */
 package org.eclipse.microprofile.graphql.tck.apps.superhero.db;
 
+import org.eclipse.microprofile.graphql.tck.apps.superhero.model.SuperHero;
+import org.eclipse.microprofile.graphql.tck.apps.superhero.model.Team;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Initialized;
+import javax.enterprise.event.Observes;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import java.time.OffsetTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,15 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.event.Observes;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-
-import org.eclipse.microprofile.graphql.tck.apps.superhero.model.SuperHero;
-import org.eclipse.microprofile.graphql.tck.apps.superhero.model.Team;
 
 @ApplicationScoped
 public class HeroDatabase {
@@ -44,7 +43,9 @@ public class HeroDatabase {
             Jsonb jsonb = JsonbBuilder.create();
             String mapJson = getInitalJson();
             addHeroes(jsonb.fromJson(mapJson,
-                      new ArrayList<SuperHero>(){}.getClass().getGenericSuperclass()));
+                    new ArrayList<SuperHero>() {
+                    }.getClass().getGenericSuperclass()));
+
             getHero("Iron Man").setNamesOfKnownEnemies(Arrays.asList("Whiplash", "Mandarin"));
             getTeam("Avengers").setDailyStandupMeeting(OffsetTime.parse("11:05:00+02:00"));
         } catch (Exception ex) {
@@ -124,7 +125,7 @@ public class HeroDatabase {
         return hero;
     }
 
-    public Team createNewTeam(String teamName, SuperHero...initialMembers) {
+    public Team createNewTeam(String teamName, SuperHero... initialMembers) {
         Team newTeam = new Team();
         newTeam.setName(teamName);
         newTeam.addMembers(initialMembers);

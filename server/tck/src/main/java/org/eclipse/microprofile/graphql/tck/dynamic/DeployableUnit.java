@@ -16,7 +16,6 @@
 package org.eclipse.microprofile.graphql.tck.dynamic;
 
 import org.eclipse.microprofile.graphql.ConfigKey;
-import org.eclipse.microprofile.graphql.MetaField;
 import org.eclipse.microprofile.graphql.tck.apps.basic.api.ScalarTestApi;
 import org.eclipse.microprofile.graphql.tck.apps.superhero.api.HeroFinder;
 import org.eclipse.microprofile.graphql.tck.apps.superhero.db.HeroDatabase;
@@ -50,7 +49,6 @@ public class DeployableUnit {
                 .addPackage(HeroFinder.class.getPackage())
                 .addPackage(HeroDatabase.class.getPackage())
                 .addPackage(SuperHero.class.getPackage())
-                .addPackage(MetaField.class.getPackage())
                 .addPackage(ScalarTestApi.class.getPackage());
     }
 
